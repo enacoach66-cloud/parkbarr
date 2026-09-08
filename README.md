@@ -24,10 +24,9 @@ time. For a production club system, move the data to a managed persistent
 database and set `DATABASE_PATH` only where a real writable persistent disk is
 available; Vercel does not provide one for SQLite.
 
-Default local login:
-- Username: `admin`
-- Password: `admin123`
-- Role: Administrator/Owner
+There is no default account. An authorized administrator creates accounts through
+the user-management screen. Store connection details only in deployment
+environment variables; never commit `.env` files.
 
 ## Included
 - Products and categories imported from the photographed paper stock sheets.
