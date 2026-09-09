@@ -16,13 +16,12 @@ Open http://localhost:3000
 Set **Root Directory** to `club_system` when importing this repository. The
 included `vercel.json` routes the site and API through the Express server.
 
-Vercel functions have a read-only deployment directory, so the app uses `/tmp`
-for SQLite while deployed. That prevents the startup crash, but `/tmp` is
-ephemeral and is not shared reliably between function instances. It is suitable
-only for a preview/demo: sales, stock, users, and settings can disappear at any
-time. For a production club system, move the data to a managed persistent
-database and set `DATABASE_PATH` only where a real writable persistent disk is
-available; Vercel does not provide one for SQLite.
+The application uses the configured PostgreSQL database as its only persistent
+store. For Vercel, set `DATABASE_URL` to Supabase's **Transaction pooler**
+connection string (port `6543`), not the Session pooler string (port `5432`).
+The server intentionally limits each function instance to one database client;
+this prevents a burst of serverless instances from exhausting Supabase's
+session-pool connection limit.
 
 There is no default account. An authorized administrator creates accounts through
 the user-management screen. Store connection details only in deployment
